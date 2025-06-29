@@ -62,7 +62,7 @@ class Login {
     
     Login(){
         JFrame frame = new JFrame("Login");
-        frame.setSize(500, 500);
+        frame.setSize(700, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(10,10)); // 3 rows, 1 column with gaps
        // frame.setVisible(true);
@@ -122,8 +122,8 @@ class Login {
         usernameLabel.setLabelFor(usernameField);
         usernameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
-        usernamePanel.add(usernameLabel);
-        usernamePanel.add(usernameField);
+        inputpanel.add(usernameLabel);
+        inputpanel.add(usernameField);
         
         // Create a password field for secure input
         // It will hide the actual characters typed by the user
@@ -133,17 +133,40 @@ class Login {
         JLabel passwordLabel = new JLabel("Password:");
         passwordLabel.setLabelFor(passwordField);
         passwordLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        //passwordLabel.setPreferredSize(new Dimension(100, 30));
+        passwordLabel.setLabelFor(passwordField);
+        //gap beteen label and field
+        passwordLabel.setPreferredSize(new Dimension(100, 30));
+        //makinng label anf field bigger in size
+        passwordField.setPreferredSize(new Dimension(250, 300));
 
         JPanel passwordPanel = new JPanel();
         passwordPanel.setPreferredSize(new Dimension(100, 50));
         passwordPanel.setBackground(Color.CYAN);
         passwordPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        passwordPanel.add(passwordLabel);
-        passwordPanel.add(passwordField);
+        inputpanel.add(passwordLabel);
+        inputpanel.add(passwordField);
 
-        inputpanel.setLayout(new GridLayout(2,1)); // 2 rows, 2 columns with gaps
-        inputpanel.add(usernamePanel);
-        inputpanel.add(passwordPanel);
+      // inputpanel.setLayout(new GridLayout(2,2)); // 2 rows, 2 columns with gaps
+        inputpanel.setLayout(null); // Using null layout for manual positioning
+       //maybe let's just set bounds 
+       usernameLabel.setFont(new Font("Arial", Font.BOLD, 26));
+          //usernameField.setFont(new Font("Arial", Font.PLAIN, 16));
+          passwordLabel.setFont(new Font("Arial", Font.BOLD, 26));
+         // passwordField.setFont(new Font("Arial", Font.PLAIN, 16));
+          
+          // Set bounds for the username and password fields
+          // This will position them manually in the input panel
+         usernameLabel.setBounds(50, 50, 150, 50);
+          usernameField.setBounds(250, 50, 250, 50);
+          passwordLabel.setBounds(50, 200, 150, 50);
+          passwordField.setBounds(250, 200, 250, 50);
+          
+          // Add the username and password fields to the input panel
+          //inputpanel.add(usernameLabel);
+          //inputpanel.add(usernameField);
+       // inputpanel.add(usernamePanel);
+       // inputpanel.add(passwordPanel);
         
        // inputpanel.add(passwordLabel);
         //inputpanel.add(passwordField);
@@ -158,7 +181,7 @@ class Login {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //later.....
-                // new User_dashboard();
+                 new User_dashboard();
                 // This will redirect to the user dashboard after successful login
                 
                 frame.dispose(); // Close the login window
@@ -173,7 +196,7 @@ class Login {
             public void actionPerformed(ActionEvent e) {
                 // Redirect to the account creation page
                 //later....
-                //new Create_account();
+                new Create_account();
                 frame.dispose(); // Close the login window
             }
         });
@@ -201,8 +224,92 @@ class Create_account {
         JLabel label = new JLabel("Welcome to the Create Account Page");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         frame.add(label);
-        frame.setSize(300, 200);
+        frame.setSize(700, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTextField usernameField = new JTextField();
+        JPasswordField passwordField = new JPasswordField();
+        JTextField emailField = new JTextField();
+        JPasswordField confirmPasswordField = new JPasswordField();
+
+        // Create labels for the fields
+        JLabel usernameLabel = new JLabel("Username:");
+        usernameLabel.setLabelFor(usernameField);
+        usernameLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setLabelFor(passwordField);
+        passwordLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setLabelFor(emailField);
+        emailLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
+        confirmPasswordLabel.setLabelFor(confirmPasswordField);
+        confirmPasswordLabel.setHorizontalAlignment(SwingConstants.LEFT);
+
+        // Create a panel for the input fields
+        JPanel inputPanel = new JPanel();
+      //  inputPanel.setLayout(new GridLayout(4, 2, 10, 10)); // 4 rows, 2 columns with gaps
+
+      //nope let's set bounds and go for null layout
+        inputPanel.setLayout(null); // Using null layout for manual positioning
+
+        // Set bounds for the labels and fields
+        usernameLabel.setBounds(50, 50, 150, 30);   
+        usernameField.setBounds(250, 50, 250, 30);
+        emailLabel.setBounds(50, 100, 150, 30);
+        emailField.setBounds(250, 100, 250, 30);
+        passwordLabel.setBounds(50, 150, 150, 30);
+        passwordField.setBounds(250, 150, 250, 30);
+        confirmPasswordLabel.setBounds(50, 200, 150, 30);
+        confirmPasswordField.setBounds(250, 200, 250, 30);
+
+
+        inputPanel.add(usernameLabel);
+        inputPanel.add(usernameField);
+        inputPanel.add(emailLabel);
+        inputPanel.add(emailField);
+        inputPanel.add(passwordLabel);
+        inputPanel.add(passwordField);
+        inputPanel.add(confirmPasswordLabel);
+        inputPanel.add(confirmPasswordField);
+
+        //let's go for butoons now 
+        //umm.. two buttomns create and back to login
+        JButton createButton = new JButton("Create Account");
+        createButton.setPreferredSize(new Dimension(150, 30));
+        createButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Handle account creation logic here
+                // For now, it will just display a message
+                JOptionPane.showMessageDialog(frame, "Account created successfully!");
+                frame.dispose(); // Close the create account window
+                new Login(); // Redirect to the login page
+            }
+        });
+        JButton backButton = new JButton("Back to Login");
+        backButton.setPreferredSize(new Dimension(150, 30));
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Redirect to the login page
+                frame.dispose(); // Close the create account window
+                new Login(); // Open the login page
+            }
+        });
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        buttonPanel.add(createButton);
+        buttonPanel.add(backButton);
+        buttonPanel.setPreferredSize(new Dimension(300, 50));
+        buttonPanel.setBackground(Color.LIGHT_GRAY);
+
+
+        frame.setLayout(new BorderLayout(10, 10)); // 3 rows, 1 column with gaps
+        frame.add(label, BorderLayout.NORTH);
+        frame.add(inputPanel, BorderLayout.CENTER);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
         // I'll be creating JTextFields for username, password, email, etc.
         // and a button for account creation
@@ -234,7 +341,7 @@ class User_dashboard {
         JLabel label = new JLabel("Welcome to the User Dashboard");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         frame.add(label);
-        frame.setSize(300, 200);
+        frame.setSize(1000, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
